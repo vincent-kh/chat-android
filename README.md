@@ -1,100 +1,69 @@
-# Chat 應用程式
+# ChatRoom (Android/iOS)
 
-這是一個使用 Flutter 開發的即時聊天應用程式，支援 WebSocket 和 TCP Socket 連線。
+## 功能介紹
 
-## 主要功能
+這是一個基於 WebSocket 和 Socket 的即時通訊應用程式，
 
-*   即時訊息傳遞
-*   使用者上線/離線通知
-*   顯示線上使用者列表
-*   使用者名稱設定
-*   管理員功能：
-    *   踢出使用者
-    *   提升/降級使用者權限 (管理員/Root)
-    *   關閉聊天室 (管理員/Root)
-*   輸入狀態提示
-*   訊息時間戳記
-*   支援 Markdown 格式訊息
-*   深色模式支援
+### 1. 使用者管理
+- **提升用戶為管理員**：管理員可以提升普通用戶為管理員。
+- **降級管理員**：超級管理員（Root）可以降級管理員為普通用戶。
+- **踢出用戶**：管理員和超級管理員可以踢出普通用戶。
 
-## 技術棧
+### 2. 即時訊息
+- **文字訊息**：支援 Markdown 格式，包含標題、粗體、斜體、程式碼塊等。
+- **系統訊息**：顯示聊天室的系統通知，例如用戶加入或離開聊天室。
+- **打字提示**：顯示正在輸入訊息的用戶。
 
-*   **前端**: Flutter
-*   **後端**: Python (WebSocket/Socket 伺服器 - 參考 `chat-server` 目錄)
-*   **通訊協定**: WebSocket, TCP Socket
+### 3. 聊天室管理
+- **關閉聊天室**：管理員或超級管理員可以關閉聊天室。
+- **用戶列表**：顯示聊天室中的所有成員，包含管理員和普通用戶。
 
-## 如何開始
+### 4. 平台支援
+- **多平台**：支援 Android、iOS，Web可前往 [ChatRoom Web](https://chatroom.example.com) 使用。
+- **深色模式**：根據系統設定自動切換深色或淺色主題。
 
-### 1. 設定後端伺服器
+---
 
-本專案包含一個 Python 後端伺服器範例，位於 `chat-server` 目錄下。
+## 使用方式
 
-*   進入 `chat-server` 目錄：
-    ```bash
-    cd chat-server
-    ```
-*   (可選) 建立並啟用虛擬環境：
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate  # macOS/Linux
-    # venv\Scripts\activate    # Windows
-    ```
-*   安裝依賴套件：
-    ```bash
-    pip install -r requirements.txt
-    ```
-*   啟動伺服器 (預設監聽 `localhost:8765` for WebSocket 和 `localhost:12345` for Socket)：
-    ```bash
-    python src/chat_server.py
-    ```
-    您可以修改 `config.json` 來變更伺服器設定。
+### 1. 登入聊天室
+1. 啟動應用程式後，輸入使用者名稱：
+   - **使用者名稱**：2-20 個字符，支援中文、英文字母、數字、底線和連字號。
+   - **伺服器地址**：例如 `127.0.0.1` 或 `10.0.2.2`。
+   - **伺服器端口**：介於 1-65535 的有效端口號，例如 `8080`。
+2. 點擊「進入聊天室」按鈕。
 
-### 2. 執行 Flutter 前端應用程式
+### 2. 發送訊息
+- 在訊息輸入框中輸入文字，點擊「發送」按鈕。
 
-*   確保您已安裝 Flutter SDK。
-*   在專案根目錄下 (包含此 `README.md` 的目錄) 執行：
-    ```bash
-    flutter pub get
-    flutter run
-    ```
-*   應用程式啟動後，在登入頁面輸入伺服器位址 (例如 `localhost:8765` for WebSocket 或 `localhost:12345` for Socket) 和您的使用者名稱即可開始使用。
+  <img src="readme_img/Screenshot_1749198051.png" alt="關閉聊天室" width="300px">
 
-## 專案結構 (簡化)
+### 3. 管理用戶
+- 點擊用戶列表中的用戶，選擇以下操作：
+  - **提升為管理員**：需要管理員或超級管理員權限。
+  - **降級為普通用戶**：需要超級管理員權限。
+  - **踢出用戶**：需要管理員或超級管理員權限。   
 
-```
-chat/
-├── android/              # Android 專案檔案
-├── ios/                  # iOS 專案檔案
-├── lib/                  # Flutter Dart 程式碼
-│   ├── main.dart         # 應用程式進入點
-│   ├── models/           # 資料模型 (User, ChatMessage)
-│   ├── screens/          # UI 畫面 (LoginPage, ChatRoom)
-│   └── widgets/          # 自訂 UI 元件
-├── chat-server/          # Python 後端伺服器
-│   ├── src/
-│   │   ├── chat_server.py  # 伺服器主程式
-│   │   └── ...             # 其他後端模組
-│   ├── config.json       # 伺服器設定檔
-│   └── requirements.txt  # Python 依賴
-├── pubspec.yaml          # Flutter 專案設定檔
-└── README.md             # 本文件
-```
+  <img src="readme_img/Screenshot_1749198051.png" alt="關閉聊天室" width="300px">
+  <img src="readme_img/Screenshot_1749198064.png" alt="關閉聊天室" width="300px">
+  <img src="readme_img/Screenshot_1749198056.png" alt="關閉聊天室" width="300px">
 
-## Flutter 預設說明
+### 4. 關閉聊天室
+- 管理員或超級管理員可以在聊天室右上角選擇「關閉聊天室」。
 
-(以下為 Flutter 專案建立時的預設說明，您可以選擇保留或移除)
+    <img src="readme_img/Screenshot_1749198071.png" alt="關閉聊天室" width="300px">
 
-A new Flutter project.
+---
 
-### Getting Started
+## 開發者指南
 
-This project is a starting point for a Flutter application.
+### 環境需求
+- **Flutter SDK**：請確保已安裝最新版本的 Flutter。
+- **依賴套件**：
+  - `web_socket_channel`：用於 WebSocket 通訊。
+  - `flutter`：用於跨平台 UI 開發。
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 啟動應用程式
+1. 在專案目錄中執行以下命令：
+   ```bash
+   flutter run
