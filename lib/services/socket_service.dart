@@ -51,7 +51,6 @@ class SocketService {
       
       return true;
     } catch (e) {
-      print('連接失敗: $e');
       _isConnected = false;
       return false;
     }
@@ -78,7 +77,6 @@ class SocketService {
     try {
       _webSocket!.sink.add(jsonEncode(message));
     } catch (e) {
-      print('發送訊息失敗: $e');
       _isConnected = false;
     }
   }
@@ -88,16 +86,11 @@ class SocketService {
     _webSocket?.stream.listen(
       (data) {
         if (data is String) {
-          try {
             final jsonData = jsonDecode(data);
             _messageStreamController.add(jsonData);
-          } catch (e) {
-            print('解析訊息失敗: $e');
-          }
         }
       },
       onError: (error) {
-        print('連線錯誤: $error');
         _isConnected = false;
         _messageStreamController.add({
           'type': 'connectionError',
@@ -105,7 +98,6 @@ class SocketService {
         });
       },
       onDone: () {
-        print('連線已關閉');
         _isConnected = false;
         _messageStreamController.add({
           'type': 'connectionClosed',

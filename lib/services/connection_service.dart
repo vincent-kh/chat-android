@@ -17,7 +17,7 @@ class ConnectionService {
       var connectivityResult = await _connectivity.checkConnectivity();
       debugPrint('網絡連接狀態: $connectivityResult');
       
-      if (connectivityResult == ConnectivityResult.none) {
+      if (connectivityResult.contains(ConnectivityResult.none) || connectivityResult.isEmpty) {
         return false;
       }
       

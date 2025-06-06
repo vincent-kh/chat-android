@@ -956,26 +956,25 @@ class _ChatRoomState extends State<ChatRoom> with WidgetsBindingObserver {
     if (!_isAdmin && !_isRoot) return null;
     
     List<Widget> actions = [];
-    
     if (user.isRoot && !_isRoot) {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: const [
-          Icon(
-            Icons.admin_panel_settings,
-            color: Colors.red, // Simplified, direct color
-            size: 20,
-          ),
-          SizedBox(width: 4),
-          Text(
-            'Root',
-            style: TextStyle(
-              color: Colors.red,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
-        ],
+      return const Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(
+        Icons.admin_panel_settings,
+        color: Colors.red, // Simplified, direct color
+        size: 20,
+        ),
+        SizedBox(width: 4),
+        Text(
+        'Root',
+        style: TextStyle(
+          color: Colors.red,
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
+        ),
+      ],
       );
     }
     

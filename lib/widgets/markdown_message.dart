@@ -127,7 +127,6 @@ class MarkdownMessageWidget extends StatelessWidget {
   }
 
   Future<void> _launchUrl(String url) async {
-    try {
       final uri = Uri.parse(url);
       if (await canLaunchUrl(uri)) {
         await launchUrl(
@@ -135,8 +134,5 @@ class MarkdownMessageWidget extends StatelessWidget {
           mode: LaunchMode.externalApplication,
         );
       }
-    } catch (e) {
-      print('無法開啟連結: $url, 錯誤: $e');
-    }
   }
 }
